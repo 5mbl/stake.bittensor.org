@@ -52,6 +52,11 @@ const WalletPage = () => {
       const response = await fetch("/api/validators");
       const data = await response.json();
       setValidators(data);
+
+      // Automatically select the first validator as default if the list is not empty
+      if (data.length > 0) {
+        setSelectedValidator(data[0].hotkey);
+      }
     };
 
     fetchValidators();
@@ -61,6 +66,7 @@ const WalletPage = () => {
     setAccounts(null);
     setIsConnected(false);
     setBalance("");
+    setSelectedValidator("");
   };
 
   const fetchBalance = async (address) => {
@@ -121,9 +127,10 @@ const WalletPage = () => {
                 </option>
               ))}
             </select>
-            <p>
+            <br />
+            {/*<p>
               <strong>Address:</strong> {selectedAccount}
-            </p>
+              </p>*/}
 
             <select
               value={selectedValidator}
@@ -141,7 +148,7 @@ const WalletPage = () => {
             </p>
 
             <p>
-              <strong>Balance:</strong> {balance}
+              <strong>Available Balance:</strong> {balance} TAO
             </p>
           </div>
           <button
