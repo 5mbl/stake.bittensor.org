@@ -3,8 +3,11 @@ import React, { useState, useEffect } from "react";
 import { web3Enable, web3Accounts } from "@polkadot/extension-dapp";
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { checkStakingAmount } from "@/utils/getStakingAmout";
+import StakeForm from "./StakeForm";
 
 const WalletPage = () => {
+  const [api, setApi] = useState(null);
+
   const [accounts, setAccounts] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState("");
   const [balance, setBalance] = useState("");
@@ -30,6 +33,15 @@ const WalletPage = () => {
       }
     };
 
+    const initApi = async () => {
+      const provider = new WsProvider(
+        "wss://entrypoint-finney.opentensor.ai:443"
+      );
+      const api = await ApiPromise.create({ provider });
+      setApi(api);
+    };
+
+    initApi();
     connectWallet();
   }, []);
 
@@ -151,6 +163,16 @@ const WalletPage = () => {
               <strong>Available Balance:</strong> {balance} TAO
             </p>
           </div>
+          {api && selectedAccount && (
+            <StakeForm
+              api={api}
+              selectedValidator={selectedValidator}
+              accountAddress={accounts.find(
+                (acc) => acc.address === selectedAccount
+              )}
+            />
+          )}
+          {/* Disconnect button logic */}
           <button
             onClick={disconnectWallet}
             className="bg-red-500 text-white px-4 py-2 rounded-md mt-4"
