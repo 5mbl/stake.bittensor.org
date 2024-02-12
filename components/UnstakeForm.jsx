@@ -12,10 +12,11 @@ const UnstakeForm = ({ api, selectedValidator, accountAddress }) => {
     }
 
     try {
-      // Corrected variable name from stakeAmount to unstakeAmount
       const unstakeAmountInRAO = (
         parseFloat(unstakeAmount) * 1000000000
       ).toString(); // Convert TAO to RAO
+
+       // Connect to the selected account
       const injector = await web3FromSource(accountAddress.meta.source);
       const tx = api.tx.subtensorModule.removeStake(
         selectedValidator,
