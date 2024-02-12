@@ -44,12 +44,22 @@ const StakeForm = ({ api, selectedValidator, accountAddress }) => {
     }
   };
 
+  const handleStakeAmountChange = (event) => {
+    let input = parseFloat(event.target.value);
+    if (!isNaN(input)) {
+      input = Math.floor(input * 1000) / 1000; // Truncate to three decimal places
+      setStakeAmount(input.toString()); // Convert back to string to maintain consistent state type
+    } else {
+      setStakeAmount(""); // Reset or handle invalid input
+    }
+  };
+
   return (
     <div>
       <input
         type="number"
         value={stakeAmount}
-        onChange={(e) => setStakeAmount(e.target.value)}
+        onChange={handleStakeAmountChange}
         placeholder="Amount to Stake"
         className="mb-4 p-2 border rounded"
       />
