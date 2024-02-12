@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import Footer from "@/components/Footer";
+import Head from "next/head";
 
 const WalletPageWithNoSSR = dynamic(() => import("@/components/WalletPage"), {
   ssr: false, // Disable server-side rendering for this component
@@ -7,8 +9,24 @@ const WalletPageWithNoSSR = dynamic(() => import("@/components/WalletPage"), {
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <WalletPageWithNoSSR />
-    </div>
+    <>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+        <style>{`body { font-family: 'Space Grotesk', sans-serif; }`}</style>
+      </Head>
+      <div className="flex flex-col min-h-screen">
+        <div className="flex-grow">
+          <div className="container mx-auto px-40 py-8">
+            <WalletPageWithNoSSR />
+          </div>
+        </div>
+        <div className="w-full">
+          <Footer />
+        </div>
+      </div>
+    </>
   );
 }
