@@ -33,6 +33,10 @@ export default function Document() {
           data-domain={config.domainName}
           src="https://plausible.io/js/script.js"
         ></script>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <body>
         <Main />
