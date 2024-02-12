@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { web3FromSource } from "@polkadot/extension-dapp";
 
-const UnstakeForm = ({ api, selectedValidator, accountAddress }) => {
+const UnstakeForm = ({ api, selectedValidator, accountAddress, goBack }) => {
   const [unstakeAmount, setUnstakeAmount] = useState("");
   const [unstakingStatus, setUnstakingStatus] = useState("");
 
@@ -16,7 +16,7 @@ const UnstakeForm = ({ api, selectedValidator, accountAddress }) => {
         parseFloat(unstakeAmount) * 1000000000
       ).toString(); // Convert TAO to RAO
 
-       // Connect to the selected account
+      // Connect to the selected account
       const injector = await web3FromSource(accountAddress.meta.source);
       const tx = api.tx.subtensorModule.removeStake(
         selectedValidator,
@@ -42,21 +42,29 @@ const UnstakeForm = ({ api, selectedValidator, accountAddress }) => {
   };
 
   return (
-    <div>
+    <div className="text-gray-900">
       <input
         type="number"
         value={unstakeAmount}
         onChange={(e) => setUnstakeAmount(e.target.value)}
         placeholder="Amount to Unstake"
-        className="mb-4 p-2 border rounded"
+        className="mb-4 p-2 border border-gray-300 rounded shadow-sm focus:border-black"
       />
       <button
         onClick={handleUnstake}
-        className="bg-red-500 text-white px-4 py-2 rounded-md"
+        className="bg-gray-800 ml-2 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-opacity-50"
       >
         Submit Unstake
       </button>
-      {unstakingStatus && <p>{unstakingStatus}</p>}
+      {unstakingStatus && <p className="text-sm mt-2">{unstakingStatus}</p>}
+
+      {/* ... form inputs and submit button */}
+      <button
+        onClick={goBack}
+        className="bg-gray-300 text-black px-4 py-2 rounded-md text-md mt-2"
+      >
+        Go Back
+      </button>
     </div>
   );
 };
