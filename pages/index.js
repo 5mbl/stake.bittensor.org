@@ -19,7 +19,7 @@ export default function Home() {
       </Head>
       <div className="flex flex-col min-h-screen">
         <div className="flex-grow">
-          <div className="container mx-auto px-40 py-8">
+          <div className="container mx-auto px-4 py-8 flex justify-center">
             <WalletPageWithNoSSR />
           </div>
         </div>

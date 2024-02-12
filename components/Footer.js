@@ -22,16 +22,16 @@ const Footer = () => {
                 alt="ShipFast logo"
                 priority={true}
                 className="w-6 h-6"
-                width={24}
-                height={24}
+                width={50}
+                height={50}
               />
               <strong className="font-extrabold tracking-tight text-base md:text-lg">
-                ShipFast
+                Bittensor.org
               </strong>
             </Link>
 
             <p className="mt-3 text-sm text-base-content/80">
-              Ship your startup in days, not weeks
+              Incentivizing Intelligence.
             </p>
             <p className="mt-3 text-sm text-base-content/60">
               Copyright © {new Date().getFullYear()} - All rights reserved
@@ -44,21 +44,15 @@ const Footer = () => {
               </div>
 
               <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
-                {config.mailgun.supportEmail && (
-                  <a
-                    href={`mailto:${config.mailgun.supportEmail}`}
-                    target="_blank"
-                    className="link link-hover"
-                    aria-label="Contact Support"
-                  >
-                    Support
-                  </a>
-                )}
-                <Link href="/#pricing" className="link link-hover">
-                  Pricing
+                <Link href="https://bittensor.org" className="link link-hover">
+                  Website
                 </Link>
-                <a href="/#" target="_blank" className="link link-hover">
-                  Affiliates
+                <a
+                  href="https://bittensor.org/blog"
+                  target="_blank"
+                  className="link link-hover"
+                >
+                  Blog
                 </a>
               </div>
             </div>
@@ -71,9 +65,6 @@ const Footer = () => {
               <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
                 <Link href="/tos" className="link link-hover">
                   Terms of services
-                </Link>
-                <Link href="/privacy-policy" className="link link-hover">
-                  Privacy policy
                 </Link>
               </div>
             </div>

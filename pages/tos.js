@@ -48,47 +48,21 @@ const TOS = () => {
           </svg>
           Back
         </Link>
-        <h1 className="text-3xl font-bold pb-6">Privacy Policy for ShipFast</h1>
+        <h1 className="text-3xl font-bold pb-6">
+          Terms of services for Bittensor Staking App
+        </h1>
 
         <pre
           className="leading-relaxed whitespace-pre-wrap"
           style={{ fontFamily: "sans-serif" }}
         >
-          {`Last Updated: August 25, 2023
+          {`Legal Disclaimer
 
-This Privacy Policy describes how ShipFast ("we", "us", or "our") collects, uses, and protects the personal and non-personal information you provide on the ShipFast website (https://shipfa.st) and any related services. By accessing or using our website, you consent to the practices described in this policy.
+This software is not affiliated with the Opentensor Foundation and is accepted “as is” with no representation or warranty of any kind. By using this software and all the services it provides, the consumer acknowledges that the “authors” of this software, shall NOT be held liable for any loss of funds. 
 
-1. Information Collection
+The authors have no obligation to indemnify, defend, or hold harmess consumer, including without limitation against claims related to liability or infringement of intellectual property rights. 
 
-We collect the following types of information:
-
-Personal Information: When you purchase a package on ShipFast, we collect your name, email address, and payment information. This information is used to process your order, provide customer support, and send important updates related to your purchase.
-
-Non-Personal Information: We may use web cookies to gather non-personal information such as your IP address, browser type, and referring pages. This helps us improve our website and tailor your experience.
-
-2. Ownership and Usage Rights
-
-When you purchase a package from ShipFast, you gain ownership of the code provided in the package. However, you do not have the right to resell or distribute the code as a standalone product. You can request a full refund within 7 days of your purchase if you are not satisfied with the product.
-
-3. Data Security
-
-We are committed to protecting your personal information. We use appropriate security measures to safeguard your data from unauthorized access, alteration, disclosure, or destruction.
-
-4. Governing Law
-
-This Privacy Policy is governed by the laws of France.
-
-5. Updates to the Privacy Policy
-
-We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. Changes will be effective as soon as the revised policy is posted on our website. We will notify you of any significant changes via email.
-
-For more details about our data collection, usage, and protection practices, please review our full Privacy Policy at https://shipfa.st/privacy-policy.
-
-If you have any questions or concerns about this Privacy Policy, please contact us at marc@shipfa.st.
-
-Thank you for using ShipFast!
-
-Date: August 25, 2023`}
+This software is NOT audited and the consumer accepts wholly the responsibilities associated with any risks incurred`}
         </pre>
       </div>
     </div>

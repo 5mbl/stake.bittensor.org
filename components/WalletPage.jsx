@@ -139,7 +139,7 @@ const WalletPage = () => {
     <>
       <div className="flex justify-start">
         <div className="bg-white text-black p-4 font-space-grotesk max-w-md">
-          <h1 className="text-3xl font-bold mb-4">Good evening!</h1>
+          <h1 className="text-3xl font-bold mb-4">Bittensor Staking App</h1>
           {!isConnected ? (
             <button
               onClick={() => window.location.reload()}

@@ -1,7 +1,6 @@
 import React from "react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import ButtonSupport from "./ButtonSupport";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -24,8 +23,6 @@ class ErrorBoundary extends React.Component {
             <p className="font-medium">Something went wrong 🥲</p>
 
             <p className="text-red-500">{this.state.error?.message}</p>
-
-            <ButtonSupport showTextOnSmall={true} />
 
             <Link href="/" className="btn btn-sm">
               <svg
