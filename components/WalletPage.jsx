@@ -4,6 +4,7 @@ import { web3Enable, web3Accounts } from "@polkadot/extension-dapp";
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { checkStakingAmount } from "@/utils/getStakingAmout";
 import StakeForm from "./StakeForm";
+import UnstakeForm from "./UnstakeForm";
 
 const WalletPage = () => {
   const [api, setApi] = useState(null);
@@ -172,6 +173,13 @@ const WalletPage = () => {
               )}
             />
           )}
+          <UnstakeForm
+            api={api}
+            selectedValidator={selectedValidator}
+            accountAddress={accounts.find(
+              (acc) => acc.address === selectedAccount
+            )}
+          />
           {/* Disconnect button logic */}
           <button
             onClick={disconnectWallet}
