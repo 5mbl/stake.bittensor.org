@@ -1,5 +1,7 @@
 // pages/wallet.js
 import React, { useState, useEffect } from "react";
+import Head from "next/head"; // Import Head for custom font
+
 import { web3Enable, web3Accounts } from "@polkadot/extension-dapp";
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { checkStakingAmount } from "@/utils/getStakingAmout";
@@ -117,79 +119,81 @@ const WalletPage = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Polkadot Wallet Connection</h1>
-      {!isConnected ? (
-        <button
-          onClick={() => window.location.reload()}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md"
-        >
-          Connect Wallet
-        </button>
-      ) : (
-        <>
-          <div>
-            <select
-              value={selectedAccount}
-              onChange={handleAccountChange}
-              className="mb-4 p-2 border rounded"
-            >
-              {accounts.map((account, index) => (
-                <option key={index} value={account.address}>
-                  {account.address} {/* Or any other identifier */}
-                </option>
-              ))}
-            </select>
-            <br />
-            {/*<p>
+    <>
+      <div className="p-4">
+        <h1 className="text-xl font-bold mb-4">Polkadot Wallet Connection</h1>
+        {!isConnected ? (
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+          >
+            Connect Wallet
+          </button>
+        ) : (
+          <>
+            <div>
+              <select
+                value={selectedAccount}
+                onChange={handleAccountChange}
+                className="mb-4 p-2 border rounded"
+              >
+                {accounts.map((account, index) => (
+                  <option key={index} value={account.address}>
+                    {account.address} {/* Or any other identifier */}
+                  </option>
+                ))}
+              </select>
+              <br />
+              {/*<p>
               <strong>Address:</strong> {selectedAccount}
               </p>*/}
 
-            <select
-              value={selectedValidator}
-              onChange={handleValidatorChange}
-              className="mb-4 p-2 border rounded"
-            >
-              {validators.map((validator) => (
-                <option key={validator.hotkey} value={validator.hotkey}>
-                  {validator.name}
-                </option>
-              ))}
-            </select>
-            <p>
-              <strong>Staking Amount:</strong> {stakingAmount} TAO
-            </p>
+              <select
+                value={selectedValidator}
+                onChange={handleValidatorChange}
+                className="mb-4 p-2 border rounded"
+              >
+                {validators.map((validator) => (
+                  <option key={validator.hotkey} value={validator.hotkey}>
+                    {validator.name}
+                  </option>
+                ))}
+              </select>
+              <p>
+                <strong>Staking Amount:</strong> {stakingAmount} TAO
+              </p>
 
-            <p>
-              <strong>Available Balance:</strong> {balance} TAO
-            </p>
-          </div>
-          {api && selectedAccount && (
-            <StakeForm
+              <p>
+                <strong>Available Balance:</strong> {balance} TAO
+              </p>
+            </div>
+            {api && selectedAccount && (
+              <StakeForm
+                api={api}
+                selectedValidator={selectedValidator}
+                accountAddress={accounts.find(
+                  (acc) => acc.address === selectedAccount
+                )}
+              />
+            )}
+            <UnstakeForm
               api={api}
               selectedValidator={selectedValidator}
               accountAddress={accounts.find(
                 (acc) => acc.address === selectedAccount
               )}
             />
-          )}
-          <UnstakeForm
-            api={api}
-            selectedValidator={selectedValidator}
-            accountAddress={accounts.find(
-              (acc) => acc.address === selectedAccount
-            )}
-          />
-          {/* Disconnect button logic */}
-          <button
-            onClick={disconnectWallet}
-            className="bg-red-500 text-white px-4 py-2 rounded-md mt-4"
-          >
-            Disconnect Wallet
-          </button>
-        </>
-      )}
-    </div>
+            {/* Disconnect button logic */}
+            <button
+              onClick={disconnectWallet}
+              className="bg-red-500 text-white px-4 py-2 rounded-md mt-4"
+            >
+              Disconnect Wallet
+            </button>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 
