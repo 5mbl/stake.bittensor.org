@@ -21,6 +21,8 @@ const WalletPage = () => {
   const [selectedValidator, setSelectedValidator] = useState("");
   const [validators, setValidators] = useState([]);
 
+  const [showForm, setShowForm] = useState(null); // 'stake', 'unstake', or null
+
   useEffect(() => {
     const connectWallet = async () => {
       await web3Enable("my-nextjs-app");
@@ -118,80 +120,135 @@ const WalletPage = () => {
     setSelectedAccount(event.target.value);
   };
 
+  // Function to show stake form
+  const showStakeForm = () => {
+    setShowForm("stake");
+  };
+
+  // Function to show unstake form
+  const showUnstakeForm = () => {
+    setShowForm("unstake");
+  };
+
+  // Function to go back to the main options from either form
+  const goBack = () => {
+    setShowForm(null);
+  };
+
   return (
     <>
-      <div className="p-4">
-        <h1 className="text-xl font-bold mb-4">Polkadot Wallet Connection</h1>
-        {!isConnected ? (
-          <button
-            onClick={() => window.location.reload()}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
-          >
-            Connect Wallet
-          </button>
-        ) : (
-          <>
-            <div>
-              <select
-                value={selectedAccount}
-                onChange={handleAccountChange}
-                className="mb-4 p-2 border rounded"
-              >
-                {accounts.map((account, index) => (
-                  <option key={index} value={account.address}>
-                    {account.address} {/* Or any other identifier */}
-                  </option>
-                ))}
-              </select>
-              <br />
-              {/*<p>
-              <strong>Address:</strong> {selectedAccount}
-              </p>*/}
-
-              <select
-                value={selectedValidator}
-                onChange={handleValidatorChange}
-                className="mb-4 p-2 border rounded"
-              >
-                {validators.map((validator) => (
-                  <option key={validator.hotkey} value={validator.hotkey}>
-                    {validator.name}
-                  </option>
-                ))}
-              </select>
-              <p>
-                <strong>Staking Amount:</strong> {stakingAmount} TAO
-              </p>
-
-              <p>
-                <strong>Available Balance:</strong> {balance} TAO
-              </p>
-            </div>
-            {api && selectedAccount && (
-              <StakeForm
-                api={api}
-                selectedValidator={selectedValidator}
-                accountAddress={accounts.find(
-                  (acc) => acc.address === selectedAccount
-                )}
-              />
-            )}
-            <UnstakeForm
-              api={api}
-              selectedValidator={selectedValidator}
-              accountAddress={accounts.find(
-                (acc) => acc.address === selectedAccount
-              )}
-            />
-            {/* Disconnect button logic */}
+      <div className="flex justify-start">
+        <div className="bg-white text-black p-4 font-space-grotesk max-w-md">
+          <h1 className="text-3xl font-bold mb-4">Good evening!</h1>
+          {!isConnected ? (
             <button
-              onClick={disconnectWallet}
-              className="bg-red-500 text-white px-4 py-2 rounded-md mt-4"
+              onClick={() => window.location.reload()}
+              className="bg-gray-800 text-white px-4 py-2 rounded-md text-md"
             >
-              Disconnect Wallet
+              Connect Wallet
             </button>
-          </>
-        )}
+          ) : (
+            <>
+              <div className="mb-4">
+                <label htmlFor="account-select" className="text-md block">
+                  Select Address:
+                </label>
+                <select
+                  id="account-select"
+                  value={selectedAccount}
+                  onChange={handleAccountChange}
+                  className="w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-black focus:ring-1 focus:ring-black text-md"
+                >
+                  {accounts.map((account, index) => (
+                    <option key={index} value={account.address}>
+                      {account.meta.name} - {account.address}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="mb-4">
+                <h2 className="text-base">Staked Amount:</h2>
+                <p className="text-3xl font-semibold">{stakingAmount} tao</p>
+              </div>
+
+              <div className="mb-4">
+                <h2 className="text-base">Available Balance:</h2>
+                <p className="text-3xl font-semibold">{balance} tao</p>
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="validator-select" className="text-md block">
+                  Select Delegate:
+                </label>
+                <select
+                  id="validator-select"
+                  value={selectedValidator}
+                  onChange={handleValidatorChange}
+                  className="w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-black focus:ring-1 focus:ring-black text-md"
+                >
+                  {validators.map((validator) => (
+                    <option key={validator.hotkey} value={validator.hotkey}>
+                      {validator.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {isConnected && !showForm && (
+                <>
+                  {/* Buttons */}
+                  <button
+                    onClick={showStakeForm}
+                    className="bg-gray-900 ml-2 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+                  >
+                    Stake
+                  </button>
+                  <button
+                    onClick={showUnstakeForm}
+                    className="bg-gray-900 ml-2 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+                  >
+                    Unstake
+                  </button>
+                </>
+              )}
+
+              {showForm === "stake" && (
+                <>
+                  <StakeForm
+                    api={api}
+                    selectedValidator={selectedValidator}
+                    accountAddress={accounts.find(
+                      (acc) => acc.address === selectedAccount
+                    )}
+                    goBack={goBack}
+                  />
+                </>
+              )}
+              {showForm === "unstake" && (
+                <>
+                  <UnstakeForm
+                    api={api}
+                    selectedValidator={selectedValidator}
+                    accountAddress={accounts.find(
+                      (acc) => acc.address === selectedAccount
+                    )}
+                    goBack={goBack}
+                  />
+                </>
+              )}
+
+              {!showForm && (
+                <button
+                  onClick={disconnectWallet}
+                  className="bg-red-600 ml-2 text-white px-4 py-2 rounded-md text-md mt-4 transition duration-300 ease-in-out hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-opacity-50"
+                >
+                  Disconnect Wallet
+                </button>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </>
   );
