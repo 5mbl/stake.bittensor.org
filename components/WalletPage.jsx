@@ -135,6 +135,20 @@ const WalletPage = () => {
     setShowForm(null);
   };
 
+  const refreshBalances = async () => {
+    console.log("refreshing balance");
+    if (selectedAccount) {
+      await fetchBalance(selectedAccount);
+    }
+    if (selectedAccount && selectedValidator) {
+      const amount = await checkStakingAmount(
+        selectedValidator,
+        selectedAccount
+      );
+      setStakingAmount(amount.toFixed(4).toString()); // Adjust the precision as needed
+    }
+  };
+
   return (
     <>
       <div className="flex justify-start">
@@ -167,17 +181,17 @@ const WalletPage = () => {
                 </select>
               </div>
 
-              <div className="mb-4">
+              <div className="mt-5 mb-4">
                 <h2 className="text-base">Staked Amount:</h2>
                 <p className="text-3xl font-semibold">{stakingAmount} tao</p>
               </div>
 
-              <div className="mb-4">
+              <div className="mt-5 mb-4">
                 <h2 className="text-base">Available Balance:</h2>
                 <p className="text-3xl font-semibold">{balance} tao</p>
               </div>
 
-              <div className="mb-4">
+              <div className="mt-5 mb-4">
                 <label htmlFor="validator-select" className="text-md block">
                   Select Delegate:
                 </label>
@@ -196,21 +210,21 @@ const WalletPage = () => {
               </div>
 
               {isConnected && !showForm && (
-                <>
+                <div className="mt-10 flex justify-center">
                   {/* Buttons */}
                   <button
                     onClick={showStakeForm}
-                    className="bg-gray-900 ml-2 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+                    className="bg-gray-900 ml-2 text-white px-10 py-2 rounded-md transition duration-300 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
                   >
                     Stake
                   </button>
                   <button
                     onClick={showUnstakeForm}
-                    className="bg-gray-900 ml-2 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+                    className="bg-gray-900 ml-2 text-white px-10 py-2 rounded-md transition duration-300 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
                   >
                     Unstake
                   </button>
-                </>
+                </div>
               )}
 
               {showForm === "stake" && (
@@ -222,6 +236,7 @@ const WalletPage = () => {
                       (acc) => acc.address === selectedAccount
                     )}
                     goBack={goBack}
+                    refreshBalances={refreshBalances}
                   />
                 </>
               )}
@@ -234,17 +249,20 @@ const WalletPage = () => {
                       (acc) => acc.address === selectedAccount
                     )}
                     goBack={goBack}
+                    refreshBalances={refreshBalances}
                   />
                 </>
               )}
 
               {!showForm && (
-                <button
-                  onClick={disconnectWallet}
-                  className="bg-red-600 ml-2 text-white px-4 py-2 rounded-md text-md mt-4 transition duration-300 ease-in-out hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-opacity-50"
-                >
-                  Disconnect Wallet
-                </button>
+                <div className="mt-4 flex justify-center">
+                  <button
+                    onClick={disconnectWallet}
+                    className="px-2 py-1 text-xs font-medium text-black transition duration-150 ease-in-out border border-black rounded focus:outline-none focus:ring-2 focus:ring-offset-2 bg-white hover:bg-gray-100 focus:ring-gray-400"
+                  >
+                    Disconnect Wallet
+                  </button>
+                </div>
               )}
             </>
           )}
