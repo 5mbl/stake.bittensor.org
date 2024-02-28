@@ -2,7 +2,13 @@
 import React, { useState } from "react";
 import { web3FromSource } from "@polkadot/extension-dapp";
 
-const StakeForm = ({ api, selectedValidator, accountAddress, goBack }) => {
+const StakeForm = ({
+  api,
+  selectedValidator,
+  accountAddress,
+  goBack,
+  refreshBalances,
+}) => {
   const [stakeAmount, setStakeAmount] = useState("");
   const [stakingStatus, setStakingStatus] = useState("");
 
@@ -55,27 +61,40 @@ const StakeForm = ({ api, selectedValidator, accountAddress, goBack }) => {
 
   return (
     <div className="text-gray-900">
-      <input
-        type="number"
-        value={stakeAmount}
-        onChange={(e) => setStakeAmount(e.target.value)}
-        placeholder="Amount to Stake"
-        className="mb-4 p-2 border border-gray-300 rounded shadow-sm focus:border-black"
-      />
-      <button
-        onClick={handleStake}
-        className="bg-gray-800 ml-2 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-opacity-50"
-      >
-        Submit Stake
-      </button>
+      <div className="flex items-center space-x-2 mb-4">
+        {" "}
+        {/* Flex container for input and submit button */}
+        <input
+          type="number"
+          value={stakeAmount}
+          onChange={(e) => setStakeAmount(e.target.value)}
+          placeholder="Amount to Stake"
+          className="flex-1 p-2 border border-gray-300 rounded shadow-sm focus:border-black" // flex-1 to take up remaining space
+        />
+        <button
+          onClick={handleStake}
+          className="px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 bg-black hover:bg-gray-900 focus:ring-gray-700"
+        >
+          Submit Stake
+        </button>
+      </div>
+      <div className="flex items-center space-x-2">
+        {" "}
+        {/* Flex container for grouped buttons */}
+        <button
+          onClick={refreshBalances}
+          className="px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 bg-black hover:bg-gray-900 focus:ring-gray-700"
+        >
+          Refresh Balances
+        </button>
+        <button
+          onClick={goBack}
+          className="px-4 py-2 text-sm font-medium text-black transition duration-150 ease-in-out border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gray-300 hover:bg-gray-400 focus:ring-gray-500"
+        >
+          Go Back
+        </button>
+      </div>
       {stakingStatus && <p className="text-sm mt-2">{stakingStatus}</p>}
-      {/* ... form inputs and submit button */}
-      <button
-        onClick={goBack}
-        className="bg-gray-300 text-black px-4 py-2 rounded-md text-md mt-2"
-      >
-        Go Back
-      </button>
     </div>
   );
 };
