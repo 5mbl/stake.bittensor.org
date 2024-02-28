@@ -13,9 +13,8 @@ const StakeForm = ({ api, selectedValidator, accountAddress, goBack }) => {
     }
 
     try {
-      const stakeAmountInRAO = (
-        parseFloat(stakeAmount) * 1000000000
-      ).toString();
+      const stakeAmountInRAO = (parseFloat(stakeAmount) * 1000000000) // converting tao in rao
+        .toString();
 
       // Connect to the selected account
       const injector = await web3FromSource(accountAddress.meta.source);
@@ -44,7 +43,7 @@ const StakeForm = ({ api, selectedValidator, accountAddress, goBack }) => {
     }
   };
 
-  const handleStakeAmountChange = (event) => {
+  /*   const handleStakeAmountChange = (event) => {
     let input = parseFloat(event.target.value);
     if (!isNaN(input)) {
       input = Math.floor(input * 1000) / 1000; // Truncate to three decimal places
@@ -52,14 +51,14 @@ const StakeForm = ({ api, selectedValidator, accountAddress, goBack }) => {
     } else {
       setStakeAmount(""); // Reset or handle invalid input
     }
-  };
+  }; */
 
   return (
     <div className="text-gray-900">
       <input
         type="number"
         value={stakeAmount}
-        onChange={handleStakeAmountChange}
+        onChange={(e) => setStakeAmount(e.target.value)}
         placeholder="Amount to Stake"
         className="mb-4 p-2 border border-gray-300 rounded shadow-sm focus:border-black"
       />
