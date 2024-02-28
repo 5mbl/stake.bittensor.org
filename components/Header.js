@@ -7,16 +7,12 @@ import config from "@/config";
 
 const links = [
   {
-    href: "/#pricing",
-    label: "Pricing",
+    href: "https://bittensor.org",
+    label: "Website",
   },
   {
-    href: "/#testimonials",
-    label: "Reviews",
-  },
-  {
-    href: "/#faq",
-    label: "FAQ",
+    href: "https://bittensor.org/blog",
+    label: "Blog",
   },
 ];
 
@@ -80,7 +76,6 @@ const Header = () => {
             </svg>
           </button>
         </div>
-
         {/* Your links on large screens */}
         <div className="hidden lg:flex lg:justify-center lg:gap-12 lg:items-center">
           {links.map((link) => (
@@ -94,9 +89,8 @@ const Header = () => {
             </Link>
           ))}
         </div>
-
         {/* CTA on large screens */}
-        <div className="hidden lg:flex lg:justify-end lg:flex-1">{cta}</div>
+        <div className="hidden lg:flex lg:justify-end lg:flex-1"> </div>
       </nav>
 
       {/* Mobile menu, show/hide based on menu state. */}
