@@ -39,7 +39,7 @@
     "next-sitemap": "^4.2.2",
     "nextjs-progressbar": "^0.0.16",
     "nodemailer": "^6.9.4",
-    "react": "18.2.0",
+    "react": ">=16.0.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-syntax-highlighter": "^15.5.0",
