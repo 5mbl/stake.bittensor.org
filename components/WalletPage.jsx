@@ -57,7 +57,7 @@ const WalletPage = () => {
           selectedValidator,
           selectedAccount
         );
-        setStakingAmount(amount.toFixed(4).toString()); // Convert to string for display
+        setStakingAmount(amount.toFixed(3).toString()); // Convert to string for display
       };
 
       fetchStakingAmount();
@@ -103,7 +103,7 @@ const WalletPage = () => {
     const balanceInTAO = Number(free) / Math.pow(10, decimals);
 
     // Now balanceInTAO is a Number and supports toFixed
-    const formattedBalance = balanceInTAO.toFixed(4); // Displays the balance with 4 decimal places
+    const formattedBalance = balanceInTAO.toFixed(3); // Displays the balance with 4 decimal places
     setBalance(formattedBalance);
   };
   useEffect(() => {
@@ -145,7 +145,7 @@ const WalletPage = () => {
         selectedValidator,
         selectedAccount
       );
-      setStakingAmount(amount.toFixed(4).toString()); // Adjust the precision as needed
+      setStakingAmount(amount.toFixed(3).toString()); // Adjust the precision as needed
     }
   };
 
